@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "episode-data.schema.json",
+  "title": "Episode data set",
+  "description": "Shape of the embedded mock episode data in src/data/episodes.ts.",
+  "type": "array",
+  "minItems": 20,
+  "maxItems": 20,
+  "uniqueItems": true,
+  "items": {
+    "type": "object",
+    "additionalProperties": false,
+    "required": ["number", "title", "publishedOn", "durationSeconds", "description"],
+    "properties": {
+      "number": { "type": "integer", "minimum": 1, "maximum": 20 },
+      "title": { "type": "string", "minLength": 1 },
+      "publishedOn": { "type": "string", "format": "date" },
+      "durationSeconds": { "type": "integer", "exclusiveMinimum": 0 },
+      "description": { "type": "string", "minLength": 1 },
+      "featured": { "type": "boolean" }
+    }
+  },
+  "$comment": "Not expressible in JSON Schema and enforced by unit tests: episode numbers are unique, exactly one episode has featured=true, and a higher number has a later publishedOn."
+}
